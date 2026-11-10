@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectMemberController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,4 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('projects/{project}/members', [ProjectMemberController::class, 'store'])->name('members.store');
     Route::patch('projects/{project}/members/{user}', [ProjectMemberController::class, 'update'])->name('members.update');
     Route::delete('projects/{project}/members/{user}', [ProjectMemberController::class, 'destroy'])->name('members.destroy');
+
+Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+Route::post('tasks/{task}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });

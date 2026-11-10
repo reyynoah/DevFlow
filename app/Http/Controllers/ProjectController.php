@@ -35,16 +35,23 @@ class ProjectController extends Controller
 
         // Pembuat otomatis jadi manager
         $project->members()->attach(auth()->id(), ['role' => 'manager']);
+        \App\Models\ActivityLog::record($project->id, auth()->user()->name . ' membuat project ini');
 
         return redirect()->route('projects.index')->with('success', 'Project berhasil dibuat.');
     }
 
     public function show(Project $project)
-    {
-        $this->authorizeMember($project);
-        $project->load(['tasks.assignee', 'members']);
-        return view('projects.show', compact('project'));
-    }
+{
+    $this->authorizeMember($project);
+
+    $project->load([
+        'tasks' => fn($q) => $q->withCount('comments')->with('assignee'),
+        'members',
+    ]);
+    $activities = $project->activities()->with('user')->limit(10)->get();
+
+    return view('projects.show', compact('project', 'activities'));
+}
 
     public function edit(Project $project)
     {

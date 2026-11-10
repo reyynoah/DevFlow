@@ -175,7 +175,12 @@
                         @foreach ($tasks[$key] ?? [] as $task)
                             <div class="bg-white p-3 rounded shadow cursor-move" data-id="{{ $task->id }}">
                                 <div class="flex justify-between items-start gap-2">
-                                    <p class="font-medium text-sm">{{ $task->title }}</p>
+                                    <a href="{{ route('tasks.show', $task) }}" class="font-medium text-sm hover:text-indigo-600">
+                                        {{ $task->title }}
+                                        @if ($task->comments_count > 0)
+                                            <span class="text-xs text-gray-400">💬 {{ $task->comments_count }}</span>
+                                        @endif
+                                    </a>
                                     <span class="text-[10px] px-2 py-0.5 rounded uppercase {{ $priorityColor[$task->priority] }}">
                                         {{ $task->priority }}
                                     </span>
@@ -195,6 +200,7 @@
                                 </div>
 
                                 <div class="mt-2 flex gap-3 text-xs">
+                                    <a href="{{ route('tasks.show', $task) }}" class="text-indigo-600">Komentar</a>
                                     <a href="{{ route('tasks.edit', $task) }}" class="text-yellow-600">Edit</a>
                                     @if ($isManager)
                                         <form action="{{ route('tasks.destroy', $task) }}" method="POST"
@@ -211,6 +217,8 @@
             @endforeach
         </div>
     </div>
+
+    @include('projects._activity')
 
     {{-- SortableJS --}}
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
