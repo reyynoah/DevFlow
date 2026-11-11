@@ -93,7 +93,7 @@
             <svg class="absolute inset-0 h-full w-full" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#E3EDDF"/><stop offset="1" stop-color="#D2DFCE"/>
+                <stop offset="0" stop-color="#81bc6a"/><stop offset="1" stop-color="#D2DFCE"/>
               </linearGradient>
               <radialGradient id="ball" cx="35%" cy="30%" r="75%">
                 <stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#E9F0E6"/><stop offset="1" stop-color="#B9C9B7"/>
